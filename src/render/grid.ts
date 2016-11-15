@@ -23,4 +23,28 @@ export class CanvasGrid{
     this.ctx.fillStyle = color;
     this.ctx.fillRect(xPos,yPos,tileSize,tileSize);
   }
+
+  //later enable sprites here
+  public drawGlyph(coords: Coords, glyph: string){
+    const xPos = coords.x * (tileSize + borderSize) - (borderSize/2)
+    const yPos = (coords.y) * (tileSize + borderSize) - (borderSize/2)
+
+    this.ctx.fillStyle = 'white';
+    this.ctx.font = tileSize + 'px Monospace';
+    this.ctx.textAlign = 'center';
+    this.ctx.textBaseline = 'middle';
+    this.ctx.fillText(glyph, xPos + tileSize/2, yPos + tileSize/2)
+  }
+
+  public drawUnit(coords: Coords[], color: string = 'blue', glyph: string = 'x'){
+    for(const c of coords){
+      this.drawTile(c.x, c.y, color);
+    }
+    this.drawGlyph(coords[0], glyph);
+  }
+}
+
+interface Coords{
+  x: number;
+  y: number;
 }

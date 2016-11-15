@@ -2,7 +2,9 @@ import { CanvasGrid } from "./render/grid"
 
 console.log("HEYOO");
 var canvas = new CanvasGrid(<HTMLCanvasElement>document.getElementById('grid'))
-canvas.drawTile(2,1,'blue');
-canvas.drawTile(2,2,'blue');
-canvas.drawTile(2,3,'blue');
-canvas.drawTile(3,3,'blue');
+canvas.drawUnit([
+  {x: 2, y: 1},
+  {x: 2, y: 2},
+  {x: 2, y: 3},
+  {x: 1, y: 3},
+], 'blue', 'x');
