@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "module": "amd",
+    "outDir": "public/js",
+    "rootDir": "src"
+  }
+}

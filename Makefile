@@ -1,5 +1,5 @@
 web:
-	tsc --outDir public/js --module amd src/*
+	tsc
 
 clean:
 	rm -rf public/js/*
