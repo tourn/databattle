@@ -9,6 +9,7 @@ export class CanvasGrid{
 
   public draw(): void{
     console.log("REDRAW");
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     for(var x = 0; x<10; x++){
       for(var y= 0; y<5; y++){
         this.drawTile({x: x, y: y}, 'grey');
