@@ -11,14 +11,14 @@ export class CanvasGrid{
     console.log("REDRAW");
     for(var x = 0; x<10; x++){
       for(var y= 0; y<5; y++){
-        this.drawTile(x,y, 'grey');
+        this.drawTile({x: x, y: y}, 'grey');
       }
     }
   }
 
-  public drawTile(xCoord: number, yCoord: number, color: string){
-    const xPos = xCoord * (tileSize + borderSize) - (borderSize/2)
-    const yPos = yCoord * (tileSize + borderSize) - (borderSize/2)
+  public drawTile(coords: Coords, color: string){
+    const xPos = this.topLeftPixel(coords.x);
+    const yPos = this.topLeftPixel(coords.y);
 
     this.ctx.fillStyle = color;
     this.ctx.fillRect(xPos,yPos,tileSize,tileSize);
@@ -43,7 +43,7 @@ export class CanvasGrid{
   public drawUnit(coords: Coords[], color: string = 'blue', glyph: string = 'x'){
     var prev: Coords = null;
     for(const c of coords){
-      this.drawTile(c.x, c.y, color);
+      this.drawTile(c, color);
       if(prev){
         this.drawConnection(prev, c, color);
       }
