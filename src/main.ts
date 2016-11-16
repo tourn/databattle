@@ -1,7 +1,7 @@
 import { CanvasGrid } from "./render/grid"
 
 console.log("HEYOO");
-var canvas = new CanvasGrid(<HTMLCanvasElement>document.getElementById('grid'))
+var canvas = new CanvasGrid(<HTMLCanvasElement>document.getElementById('grid'), 20, 10);
 var unit = [
   {x: 2, y: 1},
   {x: 2, y: 2},

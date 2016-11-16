@@ -2,7 +2,7 @@ const tileSize = 30;
 const borderSize = 2;
 export class CanvasGrid{
   private ctx: CanvasRenderingContext2D;
-  constructor(private canvas: HTMLCanvasElement){
+  constructor(private canvas: HTMLCanvasElement, private xWidth: number, private yWidth: number){
     this.ctx = canvas.getContext("2d")
     this.draw();
   }
@@ -10,35 +10,40 @@ export class CanvasGrid{
   public draw(): void{
     console.log("REDRAW");
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    for(var x = 0; x<10; x++){
-      for(var y= 0; y<5; y++){
+    for(var x = 0; x<this.xWidth; x++){
+      for(var y= 0; y<this.yWidth; y++){
         this.drawTile({x: x, y: y}, 'grey');
       }
     }
   }
 
   public drawTile(coords: Coords, color: string){
-    const xPos = this.topLeftPixel(coords.x);
-    const yPos = this.topLeftPixel(coords.y);
+    const pixels = this.topLeftPixels(coords);
 
     this.ctx.fillStyle = color;
-    this.ctx.fillRect(xPos,yPos,tileSize,tileSize);
+    this.ctx.fillRect(pixels.x,pixels.y,tileSize,tileSize);
   }
 
   protected topLeftPixel(coordinate: number){
     return coordinate * (tileSize + borderSize) - (borderSize/2)
   }
 
+  protected topLeftPixels(coords: Coords){
+    return {
+      x: this.topLeftPixel(coords.x),
+      y: this.topLeftPixel(coords.y)
+    };
+  }
+
   //later enable sprites here
   public drawGlyph(coords: Coords, glyph: string){
-    const xPos = coords.x * (tileSize + borderSize) - (borderSize/2)
-    const yPos = (coords.y) * (tileSize + borderSize) - (borderSize/2)
+    const pixels = this.topLeftPixels(coords);
 
     this.ctx.fillStyle = 'white';
     this.ctx.font = tileSize + 'px Monospace';
     this.ctx.textAlign = 'center';
     this.ctx.textBaseline = 'middle';
-    this.ctx.fillText(glyph, xPos + tileSize/2, yPos + tileSize/2)
+    this.ctx.fillText(glyph, pixels.x + tileSize/2, pixels.y + tileSize/2)
   }
 
   public drawUnit(coords: Coords[], color: string = 'blue', glyph: string = 'x'){
